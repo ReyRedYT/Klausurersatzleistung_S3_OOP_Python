@@ -67,6 +67,15 @@ class Konto:
         print("---")
         print(f"=    {self.__guthaben:8.2f} EUR",end="\n\n")
     
+    def kontostand_ueberpruefen(self):
+        # Kontostand überprüfen und ggf. korrigieren
+        if sum([buchung[0] for buchung in self.__buchungen]) != self.__guthaben:
+            print("Kontostand inkorrekt. Korrigiere...")
+            self.__guthaben = sum([buchung[0] for buchung in self.__buchungen])
+            print("Kontostand korrigiert.")
+        else:
+            print("Kontostand korrekt.")
+
     def __str__(self):
         return f"[Konto] Inhaber: {self.__inhaber}, IBAN: {self.__iban}, Guthaben: {self.__guthaben} EUR"
 
