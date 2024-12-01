@@ -1,3 +1,5 @@
+import random  # Importiere das Modul random
+
 # Konto (kann importiert werden)
 class Konto:  # Definiere die Basisklasse Konto
     def __init__(self, inhaber, startguthaben=0):  # Initialisierungsmethode
