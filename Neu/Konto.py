@@ -14,9 +14,10 @@ class Konto:
             raise ValueError("Das Startguthaben darf nicht negativ sein.")
         
         self.__inhaber = inhaber
-        self.__guthaben = startguthaben
+        self.__guthaben = 0
         self.__iban = self.generiere_iban()
         self.__buchungen = []
+        self.buchen(startguthaben, "Startguthaben")
     
     def generiere_iban(self):
         return 'DE' + ''.join([str(random.randint(0, 9)) for _ in range(20)])
@@ -63,7 +64,7 @@ class Konto:
         print("Num. Betrag       - Verwendungszweck")
         for i in range(len(self.__buchungen)):
             print(f"{(i+1):3.0f}. {self.__buchungen[i][0]:8.2f} EUR - {self.__buchungen[i][1]}")
-        print("---------")
+        print("---")
         print(f"=    {self.__guthaben:8.2f} EUR",end="\n\n")
     
     def __str__(self):
