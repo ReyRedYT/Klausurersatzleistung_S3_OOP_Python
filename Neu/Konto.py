@@ -5,7 +5,7 @@ def typecheck(object, types):
     return any([isinstance(object, t) for t in types])
 
 class Konto:
-    def __init__(self, inhaber, startguthaben=0):
+    def __init__(self, inhaber, startguthaben):
         if not typecheck(inhaber, [str]):
             raise TypeError("Der Inhaber muss ein String sein.")
         if not typecheck(startguthaben, [int, float]):
@@ -33,7 +33,7 @@ class Konto:
         return self.__iban
 
     # Buchungsmethoden
-    def buchen(self, betrag, verwendungszweck=""):
+    def buchen(self, betrag, verwendungszweck):
         if not typecheck(betrag, [int, float]):
             raise TypeError("Der Betrag muss eine Zahl sein.")
         if self.__guthaben + betrag < 0:
