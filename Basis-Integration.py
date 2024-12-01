@@ -1,5 +1,5 @@
 import random  # Importiere das Modul random, um zufällige IBANs zu generieren
-import Konto  # Importiere das Modul Konto, um die Basisklasse Konto zu verwenden
+from Konto import Konto # Importiere das Modul Konto, um die Basisklasse Konto zu verwenden
 
 # Sparkonto (erbt von Konto)
 class Sparkonto(Konto.Konto):  # Definiere die Klasse Sparkonto, die von Konto erbt
