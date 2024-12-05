@@ -21,6 +21,7 @@ class Konto:  # Definiere die Basisklasse Konto
         typecheck(betrag, (int, float))  # Überprüfe, ob der Betrag ein Integer oder Float ist
         self.guthaben += betrag  # Erhöhe das Guthaben um den Betrag
         self.buchungen.append(f"Einzahlung über {betrag} EUR")  # Füge die Buchung hinzu
+        print(f"Einzahlung über {betrag} EUR erfolgreich")
 
 
     def auszahlen(self, betrag):  # Methode zum Auszahlen eines Betrags
@@ -28,6 +29,7 @@ class Konto:  # Definiere die Basisklasse Konto
         if betrag <= self.guthaben:  # Überprüfe, ob genügend Guthaben vorhanden ist
             self.guthaben -= betrag  # Verringere das Guthaben um den Betrag
             self.buchungen.append(f"Auszahlung über {betrag} EUR")  # Füge die Buchung hinzu
+            print(f"Auszahlung über {betrag} EUR erfolgreich")  # Gib eine Erfolgsmeldung aus
         else:
             print("Nicht genügend Guthaben")  # Gib eine Fehlermeldung aus
 
@@ -39,6 +41,7 @@ class Konto:  # Definiere die Basisklasse Konto
             empfaenger.einzahlen(betrag)  # Zahle den Betrag auf das Empfängerkonto ein
             self.buchungen.append(f"Überweisung an {empfaenger.inhaber} mit der IBAN {empfaenger.iban} über {betrag} EUR")  # Füge die Buchung hinzu
             empfaenger.buchungen.append(f"Überweisung von {self.inhaber} mit der IBAN {self.iban} über {betrag} EUR")  # Füge die Buchung hinzu
+            print(f"Überweisung von {self.inhaber} an {empfaenger.inhaber} über {betrag} EUR erfolgreich")  # Gib eine Erfolgsmeldung aus
         else:
             print("Nicht genügend Guthaben")  # Gib eine Fehlermeldung aus
 
@@ -77,6 +80,7 @@ class Sparkonto(Konto):  # Definiere die Klasse Sparkonto, die von Konto erbt
 
 
     def zinsen_berechnen(self):  # Methode zur Berechnung der Zinsen
+        print(f"Zinsen in Höhe von {self.guthaben * self.zinssatz} EUR wurden dem Konto von {self.inhaber} mit der IBAN: {self.iban} gutgeschrieben.")  # Gib die Zinsen aus
         self.guthaben += self.guthaben * self.zinssatz  # Erhöhe das Guthaben um die Zinsen
 
 
@@ -95,12 +99,14 @@ class Multiwaehrungskonto(Konto):  # Definiere die Klasse Multiwaehrungskonto, d
     def usd_einzahlen(self, betrag):  # Methode zum Einzahlen eines Betrags in USD
         typecheck(betrag, (int, float))  # Überprüfe, ob der Betrag ein Integer oder Float ist
         self.usd_guthaben += betrag  # Erhöhe das USD-Guthaben um den Betrag
+        print(f"Einzahlung über {betrag} USD erfolgreich")  # Gib eine Erfolgsmeldung aus
 
 
     def usd_auszahlen(self, betrag):  # Methode zum Auszahlen eines Betrags in USD
         typecheck(betrag, (int, float))  # Überprüfe, ob der Betrag ein Integer oder Float ist
         if betrag <= self.usd_guthaben:  # Überprüfe, ob genügend USD-Guthaben vorhanden ist
             self.usd_guthaben -= betrag  # Verringere das USD-Guthaben um den Betrag
+            print(f"Auszahlung über {betrag} USD erfolgreich")  # Gib eine Erfolgsmeldung aus
         else:
             print("Nicht genügend USD-Guthaben")  # Gib eine Fehlermeldung aus
 
@@ -110,6 +116,7 @@ class Multiwaehrungskonto(Konto):  # Definiere die Klasse Multiwaehrungskonto, d
         if betrag <= self.usd_guthaben:  # Überprüfe, ob genügend USD-Guthaben vorhanden ist
             self.usd_guthaben -= betrag  # Verringere das USD-Guthaben um den Betrag
             self.guthaben += betrag * wechselkurs  # Erhöhe das EUR-Guthaben um den umgerechneten Betrag
+            print(f"Umtausch von {betrag} USD in {betrag * wechselkurs} EUR erfolgreich")  # Gib eine Erfolgsmeldung aus
         else:
             print("Nicht genügend USD-Guthaben")  # Gib eine Fehlermeldung aus
 
@@ -119,6 +126,7 @@ class Multiwaehrungskonto(Konto):  # Definiere die Klasse Multiwaehrungskonto, d
         if betrag <= self.guthaben:  # Überprüfe, ob genügend EUR-Guthaben vorhanden ist
             self.guthaben -= betrag  # Verringere das EUR-Guthaben um den Betrag
             self.usd_guthaben += betrag * wechselkurs  # Erhöhe das USD-Guthaben um den umgerechneten Betrag
+            print(f"Umtausch von {betrag} EUR in {betrag * wechselkurs} USD erfolgreich")  # Gib eine Erfolgsmeldung aus
         else:
             print("Nicht genügend EUR-Guthaben")  # Gib eine Fehlermeldung aus
 
@@ -159,4 +167,5 @@ print(multiwaehrungskonto1)  # Gib die aktualisierten Informationen des Multiwä
 
 konto1.iban_ausgeben()  # Gib die IBAN des Kontos aus
 sparkonto1.kontostand()  # Gib den Kontostand des Sparkontos aus
+sparkonto1.einzahlen(1000)  # Zahle 1000 EUR auf das Sparkonto ein
 sparkonto1.buchungen_anzeigen()  # Gib die Buchungen des Kontos aus
